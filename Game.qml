@@ -7,8 +7,28 @@ Page {
     spacing: 5
 
     signal buttonClicked(string num)
-    signal gameEnd
     signal refreshField
+
+    Popup {
+        id: popup
+        anchors.centerIn: Overlay.overlay
+        width: 300
+        height: 250
+        modal: true
+        focus: true
+
+        ColumnLayout {
+            anchors.fill: parent
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            Label {
+                id: label
+                Layout.alignment: Qt.AlignHCenter
+                font.pixelSize: 18
+                text: ""
+            }
+        }
+    }
 
     TextArea {
         id: score
@@ -44,16 +64,19 @@ Page {
     Connections {
         target: gamePage
         function onButtonClicked(num) {
-            score.placeholderText = parseInt(
-                        score.placeholderText) + parseInt(num)
+            var result = parseInt(score.placeholderText) + parseInt(num)
+            score.placeholderText = result
             var count = 0
+
             for (var i = 0; i < rep.count; i++) {
                 if (rep.itemAt(i).text !== "PRESS") {
                     count = count + 1
                 }
 
                 if (count === 4) {
+                    label.text = "Result: " + result
                     gamePage.refreshField()
+                    popup.open()
                 }
             }
         }
