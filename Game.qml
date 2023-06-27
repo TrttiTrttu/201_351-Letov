@@ -32,24 +32,38 @@ Page {
 
     TextArea {
         id: score
-        anchors.horizontalCenter: parent
+        padding: 3
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: 20
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: 20
+        width: parent.width / 2
         readOnly: true
-        placeholderText: qsTr("0")
+        text: qsTr("0")
     }
 
     GridLayout {
         id: grid
         anchors.fill: parent
-
-        rows: 3
-        columns: 4
+        anchors.top: score
+        anchors.topMargin: 75
+        anchors.leftMargin: 20
+        anchors.rightMargin: 20
+        anchors.bottomMargin: 20
+        rows: 4
+        columns: 3
 
         Repeater {
             id: rep
+            anchors.fill: parent
             model: 12
             Button {
                 required property int index
+                font.pixelSize: 20
                 text: "PRESS"
+                Layout.preferredWidth: grid.width / 3
+                Layout.preferredHeight: grid.height / 4
                 onClicked: {
                     var button = rep.itemAt(index)
                     if (button.text === "PRESS") {
@@ -64,8 +78,8 @@ Page {
     Connections {
         target: gamePage
         function onButtonClicked(num) {
-            var result = parseInt(score.placeholderText) + parseInt(num)
-            score.placeholderText = result
+            var result = parseInt(score.text) + parseInt(num)
+            score.text = result
             var count = 0
 
             for (var i = 0; i < rep.count; i++) {
@@ -85,7 +99,7 @@ Page {
     Connections {
         target: gamePage
         function onRefreshField() {
-            score.placeholderText = 0
+            score.text = 0
             for (var i = 0; i < rep.count; i++) {
                 rep.itemAt(i).text = "PRESS"
             }
