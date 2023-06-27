@@ -9,7 +9,6 @@ Page {
     signal checkPin(string pin)
     signal successPin()
 
-
     Popup {
         id: popup
         anchors.centerIn: Overlay.overlay

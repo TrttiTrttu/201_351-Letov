@@ -23,6 +23,7 @@ Window {
 
     Game {
         id: gamePage
+        visible: false
     }
 
     Connections {
