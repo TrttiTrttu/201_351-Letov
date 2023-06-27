@@ -13,8 +13,6 @@ public:
     bool checkPin(QString pin);
 signals:
     void pinChecked(bool res);
-//    void keyCreated(QByteArray key);
-//    void alertPopup(QString text);
 
 public slots:
     void onCheckPin(QString pin);
